@@ -1,0 +1,37 @@
+# This file is part of BlackArch Linux ( http://blackarch.org ).
+# See COPYING for license details.
+
+pkgname='username-anarchy'
+pkgver=54.d5e653f
+pkgrel=1
+groups=('blackarch' 'blackarch-automation')
+pkgdesc='Tools for generating usernames when penetration testing.'
+url='http://www.morningstarsecurity.com/research/username-anarchy'
+arch=('any')
+license=('GPL3')
+depends=('ruby')
+source=("git+https://github.com/urbanadventurer/username-anarchy.git")
+sha1sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/username-anarchy"
+
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+package() {
+  cd "$srcdir/username-anarchy"
+
+  mkdir -p "$pkgdir/usr/share/username-anarchy"
+  mkdir -p "$pkgdir/usr/bin"
+
+  cp -a * "$pkgdir/usr/share/username-anarchy"
+
+  cat > "$pkgdir/usr/bin/username-anarchy" << EOF
+#!/bin/sh
+cd /usr/share/username-anarchy
+exec ruby username-anarchy "\$@"
+EOF
+
+  chmod +x "$pkgdir/usr/bin/username-anarchy"
+}

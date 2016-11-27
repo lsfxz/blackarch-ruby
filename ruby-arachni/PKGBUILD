@@ -1,0 +1,46 @@
+# Maintainer: lsfxz (https://github.com/lsfxz/quarry)
+# Many thanks to anatol for quarry and gem2arch!
+# This file is part of BlackArch Linux ( http://blackarch.org ).
+# See COPYING for license details.
+_gemname=arachni
+pkgname=ruby-$_gemname
+pkgver=1.4
+pkgrel=2
+pkgdesc=Arachni\ is\ a\ feature-full,\ modular,\ high-performance\ Ruby\ framework\ aimed\ towards\ helping\ penetration\ testers\ and\ administrators\ evaluate\ the\ security\ of\ web\ applications.
+arch=(any)
+url=https://www.arachni-scanner.com
+license=(Arachni\ Public\ Source\ License\ v1.0)
+depends=(ruby ruby-addressable-2.3.6 ruby-arachni-rpc ruby-awesome_print ruby-bundler ruby-childprocess-0.5.3 ruby-coderay-1.1.0 ruby-concurrent-ruby-1.0.0 ruby-concurrent-ruby-ext-1.0.0 ruby-http_parser.rb ruby-kramdown-1.4.1 ruby-loofah ruby-msgpack-0.7.0 ruby-nokogiri-1.6.8.rc2 ruby-oj-2.14 ruby-oj_mimic_json ruby-pony-1.8 ruby-puma-2.14 ruby-rack ruby-rb-readline-0.5.1 ruby-rubyzip-1.1.6 ruby-sinatra-1.4.6 ruby-sinatra-contrib-1.4.6 ruby-terminal-table-1.4 ruby-typhoeus-1.0.1 ruby-watir-webdriver-0.8)
+makedepends=()
+groups=(blackarch blackarch-webapp)
+replaces=(arachni)
+conflicts=(arachni)
+provides=(arachni)
+optdepends=()
+options=(!emptydirs)
+source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem
+    
+)
+noextract=($_gemname-$pkgver.gem)
+sha1sums=('f40c7508bc6fae75b632569e792885845ba016ee'
+    
+)
+
+prepare() {
+
+  true
+}
+
+package() {
+  local _gemdir="/usr/lib/ruby/gems/2.3.0"
+  gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
+  rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.md"
+  local _extdir="$pkgdir//usr/lib/ruby/gems/2.3.0/extensions/$CARCH/2.3.0/$_gemname-$pkgver"
+  if [ -d "$_extdir" ]; then
+    rm -rf "$_extdir"/*
+    touch "$_extdir/gem.build_complete"
+  fi
+
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{ACKNOWLEDGMENTS.md,AUTHORS.md,CHANGELOG.md,CONTRIBUTORS.md,Gemfile,LICENSE.md,README.md,Rakefile,arachni.gemspec,components,config,logs,profiles,spec,ui}
+}

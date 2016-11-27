@@ -1,9 +1,8 @@
 # This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
-_gemname='wpbrute-rpc'
+pkgname='wpbrute-rpc'
 pkgver=3.e7d8145
-pkgname=ruby-$_gemname
 pkgrel=4
 groups=('blackarch' 'blackarch-cracker' 'blackarch-webapp')
 pkgdesc='Tool for amplified bruteforce attacks on wordpress based website via xmlrcp API.'
@@ -13,11 +12,7 @@ makedepends=('git')
 depends=(ruby ruby-nokogiri ruby-rest-client)
 url='https://github.com/zendoctor/wpbrute-rpc'
 source=('git+https://github.com/zendoctor/wpbrute-rpc.git')
-install='wpbrute-rpc.install'
 sha1sums=('SKIP')
-replaces=(wpbrute-rpc)
-provides=(wpbrute-rpc)
-conflicts=(wpbrute-rpc)
 
 pkgver() {
   cd "$srcdir/wpbrute-rpc"

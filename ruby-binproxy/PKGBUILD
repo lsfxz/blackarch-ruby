@@ -2,27 +2,27 @@
 # Many thanks to anatol for quarry and gem2arch!
 # This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
-_gemname=test-unit
+_gemname=binproxy
 pkgname=ruby-$_gemname
-pkgver=3.2.3
+pkgver=1.0.0
 pkgrel=1
-pkgdesc=An\ xUnit\ family\ unit\ testing\ framework\ for\ Ruby.
+pkgdesc=BinProxy
 arch=(any)
-url=http://test-unit.github.io/
-license=(Ruby, PSFL)
-depends=(ruby)
+url=https://github.com/nccgroup/BinProxy
+license=()
+depends=(ruby ruby-activesupport-4 ruby-bindata-2.1 ruby-clipboard-1.0 ruby-colorize-0.7 ruby-eventmachine-1.0 ruby-haml ruby-msgpack ruby-rbkb ruby-sass ruby-sinatra ruby-sinatra-websocket ruby-thin-1.6 ruby-trollop)
 makedepends=()
-groups=()
-replaces=()
-conflicts=()
-provides=()
+groups=(blackarch blackarch-proxy blackarch-networking)
+replaces=(binproxy)
+conflicts=(binproxy)
+provides=(binproxy)
 optdepends=()
 options=(!emptydirs)
 source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem
     
 )
 noextract=($_gemname-$pkgver.gem)
-sha1sums=('284eae1119c682116735a334de00b3584a17ae03'
+sha1sums=('65d941c8b99bd5ea0b1f296602c8e85f7416206d'
     
 )
 
@@ -35,12 +35,11 @@ package() {
   local _gemdir="/usr/lib/ruby/gems/2.3.0"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
-  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/COPYING"
   local _extdir="$pkgdir//usr/lib/ruby/gems/2.3.0/extensions/$CARCH/2.3.0/$_gemname-$pkgver"
   if [ -d "$_extdir" ]; then
     rm -rf "$_extdir"/*
     touch "$_extdir/gem.build_complete"
   fi
 
-  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{COPYING,GPL,LGPL,PSFL,README.md,Rakefile,doc,sample,test}
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{public,views}
 }

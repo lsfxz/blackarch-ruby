@@ -2,14 +2,14 @@
 # Many thanks to anatol for quarry and gem2arch!
 # This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
-_gemname=test-unit
+_gemname=backports
 pkgname=ruby-$_gemname
-pkgver=3.2.3
+pkgver=3.6.8
 pkgrel=1
-pkgdesc=An\ xUnit\ family\ unit\ testing\ framework\ for\ Ruby.
+pkgdesc=Backports\ of\ Ruby\ features\ for\ older\ Ruby.
 arch=(any)
-url=http://test-unit.github.io/
-license=(Ruby, PSFL)
+url=http://github.com/marcandre/backports
+license=(MIT)
 depends=(ruby)
 makedepends=()
 groups=()
@@ -22,7 +22,7 @@ source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem
     
 )
 noextract=($_gemname-$pkgver.gem)
-sha1sums=('284eae1119c682116735a334de00b3584a17ae03'
+sha1sums=('5c9dd0d5552d242ee6bb338a9097e85f0a0a45d5'
     
 )
 
@@ -35,12 +35,12 @@ package() {
   local _gemdir="/usr/lib/ruby/gems/2.3.0"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
-  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"
   local _extdir="$pkgdir//usr/lib/ruby/gems/2.3.0/extensions/$CARCH/2.3.0/$_gemname-$pkgver"
   if [ -d "$_extdir" ]; then
     rm -rf "$_extdir"/*
     touch "$_extdir/gem.build_complete"
   fi
 
-  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{COPYING,GPL,LGPL,PSFL,README.md,Rakefile,doc,sample,test}
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{.document,.gitignore,.gitmodules,.irbrc,.travis.yml,CHANGELOG.rdoc,Gemfile,Gemfile.lock,LICENSE.txt,README.rdoc,Rakefile,backports.gemspec,default.mspec,set_version,spec,test}
 }

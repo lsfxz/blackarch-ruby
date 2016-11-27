@@ -2,14 +2,14 @@
 # Many thanks to anatol for quarry and gem2arch!
 # This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
-_gemname=test-unit
+_gemname=arachni-reactor
 pkgname=ruby-$_gemname
-pkgver=3.2.3
+pkgver=0.1.1
 pkgrel=1
-pkgdesc=An\ xUnit\ family\ unit\ testing\ framework\ for\ Ruby.
+pkgdesc=A\ pure-Ruby\ implementation\ of\ the\ Reactor\ pattern.
 arch=(any)
-url=http://test-unit.github.io/
-license=(Ruby, PSFL)
+url=https://github.com/Arachni/arachni-reactor
+license=(BSD\ 3-Clause)
 depends=(ruby)
 makedepends=()
 groups=()
@@ -22,7 +22,7 @@ source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem
     
 )
 noextract=($_gemname-$pkgver.gem)
-sha1sums=('284eae1119c682116735a334de00b3584a17ae03'
+sha1sums=('fe9546b913531d2b648f3cf28f2d0132ef30288f'
     
 )
 
@@ -35,12 +35,12 @@ package() {
   local _gemdir="/usr/lib/ruby/gems/2.3.0"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
-  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.md"
   local _extdir="$pkgdir//usr/lib/ruby/gems/2.3.0/extensions/$CARCH/2.3.0/$_gemname-$pkgver"
   if [ -d "$_extdir" ]; then
     rm -rf "$_extdir"/*
     touch "$_extdir/gem.build_complete"
   fi
 
-  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{COPYING,GPL,LGPL,PSFL,README.md,Rakefile,doc,sample,test}
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{CHANGELOG.md,LICENSE.md,README.md,Rakefile,spec}
 }

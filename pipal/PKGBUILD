@@ -1,0 +1,37 @@
+# This file is part of BlackArch Linux ( http://blackarch.org ).
+# See COPYING for license details.
+
+pkgname='pipal'
+pkgver=120.c5a4e7c
+pkgrel=6
+groups=('blackarch' 'blackarch-cracker')
+pkgdesc='A password analyser.'
+url='http://www.digininja.org/projects/pipal.php'
+arch=('any')
+license=('GPL3')
+depends=('ruby')
+makedepends=('git')
+source=("git+https://github.com/digininja/pipal.git")
+sha1sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/pipal"
+
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+package() {
+  cd "$srcdir/pipal"
+
+  mkdir -p "$pkgdir/usr/bin"
+  mkdir -p "$pkgdir/usr/share/pipal"
+
+  cp -a * "$pkgdir/usr/share/pipal"
+
+  cat > "$pkgdir/usr/bin/pipal" << EOF
+#!/bin/sh
+exec ruby /usr/share/pipal/pipal.rb "\$@"
+EOF
+
+  chmod +x "$pkgdir/usr/bin/pipal"
+}
