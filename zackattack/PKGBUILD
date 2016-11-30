@@ -2,20 +2,18 @@
 # See COPYING for license details.
 
 pkgname='zackattack'
-pkgver=5.1f96c14
-pkgrel=4
+pkgver=6.9c8eaca
+pkgrel=1
 pkgdesc='A new tool set to do NTLM Authentication relaying unlike any other tool currently out there.'
 groups=('blackarch' 'blackarch-networking' 'blackarch-scanner'
         'blackarch-cracker')
 arch=('any')
 url='https://github.com/urbanesec/ZackAttack/'
 license=('unknown')
-depends=('ruby' 'ruby-sqlite3')
+depends=('ruby' 'ruby-sqlite3' 'ruby-webrick')
 makedepends=('git')
-source=('git+https://github.com/urbanesec/ZackAttack.git'
-        'sqlite_ver.patch')
-sha1sums=('SKIP'
-          'e514cf611a01a1dc519cec2dcda4f55d119d21dd')
+source=('ZackAttack::git+https://github.com/b00stfr3ak/ZackAttack.git#branch=cleanup')
+sha1sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/ZackAttack"
@@ -23,10 +21,10 @@ pkgver() {
   echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
 
-prepare() {
-  cd "$srcdir/ZackAttack"
-  patch -Np1 -R -i ../sqlite_ver.patch
-}
+# prepare() {
+  # cd "$srcdir/ZackAttack"
+  # patch -Np1 -R -i ../sqlite_ver.patch
+# }
 
 package() {
   cd "$srcdir/ZackAttack"
