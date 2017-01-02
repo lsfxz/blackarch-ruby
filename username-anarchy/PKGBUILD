@@ -3,18 +3,19 @@
 
 pkgname='username-anarchy'
 pkgver=54.d5e653f
-pkgrel=1
+pkgrel=2
 groups=('blackarch' 'blackarch-automation')
 pkgdesc='Tools for generating usernames when penetration testing.'
 url='http://www.morningstarsecurity.com/research/username-anarchy'
 arch=('any')
 license=('GPL3')
 depends=('ruby')
-source=("git+https://github.com/urbanadventurer/username-anarchy.git")
+makedepends=('git')
+source=('git+https://github.com/urbanadventurer/username-anarchy.git')
 sha1sums=('SKIP')
 
 pkgver() {
-	cd "$srcdir/username-anarchy"
+  cd "$srcdir/username-anarchy"
 
   echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
@@ -22,8 +23,8 @@ pkgver() {
 package() {
   cd "$srcdir/username-anarchy"
 
-  mkdir -p "$pkgdir/usr/share/username-anarchy"
   mkdir -p "$pkgdir/usr/bin"
+  mkdir -p "$pkgdir/usr/share/username-anarchy"
 
   cp -a * "$pkgdir/usr/share/username-anarchy"
 

@@ -1,9 +1,9 @@
 # This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
-pkgver=372.7fd7162
 pkgname='whitewidow'
-pkgrel=1
+pkgver=554.631e15b
+pkgrel=2
 pkgdesc='SQL Vulnerability Scanner.'
 groups=('blackarch' 'blackarch-scanner')
 arch=('any')
@@ -42,7 +42,7 @@ package() {
   cat > "$pkgdir/usr/bin/whitewidow" << EOF
 #!/bin/sh
 cd /usr/share/whitewidow
-exec ruby whitewidow.rb "\$@"
+exec ruby whitewidow.rb "\${@}"
 EOF
 
   chmod a+x "$pkgdir/usr/bin/whitewidow"

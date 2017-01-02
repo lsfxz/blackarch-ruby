@@ -1,0 +1,13 @@
+post_upgrade() {
+  set -e
+  cd /usr/share/beef
+  /usr/bin/bundle install --path vendor/bundle
+}
+
+post_install() {
+  post_upgrade
+}
+
+post_remove() {
+  rm -r /usr/share/beef/vendor
+}
