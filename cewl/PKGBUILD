@@ -1,0 +1,45 @@
+# This file is part of BlackArch Linux ( http://blackarch.org ).
+# See COPYING for license details.
+
+pkgname='cewl'
+pkgver='5.2'
+pkgrel=3
+groups=('blackarch' 'blackarch-automation' 'blackarch-cracker')
+pkgdesc='A custom word list generator'
+arch=('any')
+url="http://www.digininja.org/projects/cewl.php"
+license=('CCPL')
+depends=('ruby' 'ruby-spider' 'ruby-mini_exiftool' 'ruby-nokogiri'
+         'ruby-http_configuration' 'ruby-rubyzip' 'ruby-zip' 'ruby-mime-types')
+source=("https://github.com/digininja/CeWL/archive/${pkgver}.tar.gz")
+install='cewl.install'
+sha1sums=('7d93e1f1e0ff1f52363d46c74dc8aa828842e4fe')
+
+package() {
+  cd "$srcdir/CeWL-$pkgver"
+
+  mkdir -p "$pkgdir/usr/bin"
+  mkdir -p "$pkgdir/usr/share/cewl"
+
+  install -Dm644 README "$pkgdir/usr/share/doc/cewl/README"
+
+  rm README
+
+  cp -a * "$pkgdir/usr/share/cewl"
+
+  cat > "$pkgdir/usr/bin/cewl" << EOF
+#!/bin/sh
+cd /usr/share/cewl
+exec ruby cewl.rb "\$@"
+EOF
+
+  chmod a+x "$pkgdir/usr/bin/cewl"
+
+  cat > "$pkgdir/usr/bin/cewl-fab" << EOF
+#!/bin/sh
+cd /usr/share/cewl
+exec ruby fab.rb "\$@"
+EOF
+
+  chmod a+x "$pkgdir/usr/bin/cewl-fab"
+}
