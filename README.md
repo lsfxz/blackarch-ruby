@@ -1,6 +1,6 @@
 # blackarch-ruby
 
-Complementary (totaly inofficial) repository to blackarch, for yet un-merged changes / additions. For those out there who like toying with potentially broken packages...
+Complementary (totally inofficial) repository to blackarch, for yet un-merged changes / additions. For those out there who like toying with potentially broken packages...
 
 Put it above `[blackarch]`, like so:
 
