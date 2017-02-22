@@ -4,7 +4,7 @@
 # See COPYING for license details.
 pkgname='ruby-hashie'
 _gemname='hashie'
-pkgver='3.5.1'
+pkgver='3.5.4'
 pkgrel=1
 pkgdesc="Your friendly neighborhood hash library."
 arch=('any')
@@ -14,7 +14,7 @@ depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('a9bfaca2e15497634135fdc8bba55f87e3b07ad2' )
+sha1sums=('ec03dee26a291efe774a29d0ab67b1af02edd85e' )
 
 
 package() {
