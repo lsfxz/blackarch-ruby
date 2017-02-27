@@ -24,5 +24,11 @@ package() {
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/COPYING"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
-  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{.gitignore,.travis.yml,AUTHORS,COPYING,Changelog.md,Gemfile,INSTALL,LICENSE,README.rdoc,Rakefile,TODO,doc,examples,highline.gemspec,setup.rb,site,test}
+  # Preserve library and other required directories. Remove junk that gem installs.
+  local _copydir=`mktemp -d -t $_gemname.XXX`
+  chmod 755 $_copydir
+  (cd "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/ && cp -r --parents lib $_copydir)
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
+  mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
+
 }

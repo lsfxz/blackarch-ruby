@@ -24,7 +24,14 @@ package() {
   # non-HEAD version should not install any files in /usr/bin
   rm -r "$pkgdir"/usr/bin/
 
-  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/{CHANGELOG,README.md,Rakefile,example,ext,bin}
+  # Preserve library and other required directories. Remove junk that gem installs.
+  local _copydir=`mktemp -d -t $_gemname.XXX`
+  chmod 755 $_copydir
+  (cd "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/ && cp -r --parents lib $_copydir)
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
+  mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
+
+  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
   mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
   touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
 }
