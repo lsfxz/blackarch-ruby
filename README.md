@@ -12,7 +12,7 @@ Server = https://github.com/lsfxz/blackarch-ruby/releases/download/20170227/
 [blackarch]
 Server = https://www.mirrorservice.org/sites/blackarch.org/blackarch/$repo/os/$arch
 ```
-## tools changed (groups==blackarch*):
+## tools changed (blackarch group):
 
 ```
 beef
