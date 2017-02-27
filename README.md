@@ -14,6 +14,7 @@ Server = https://www.mirrorservice.org/sites/blackarch.org/blackarch/$repo/os/$a
 ```
 ## tools changed (groups==blackarch*):
 
+```
 beef
 cewl
 dradis
@@ -47,9 +48,11 @@ wordpress-exploit-framework
 wpbrute-rpc
 yasuo
 zackattack
+```
 
 ## all changed:
 
+```
 beef
 cewl
 dradis
@@ -137,3 +140,4 @@ wordpress-exploit-framework
 wpbrute-rpc
 yasuo
 zackattack
+```
