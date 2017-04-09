@@ -2,7 +2,7 @@
 # See COPYING for license details.
 
 pkgname='arachni'
-pkgver=9255.a192f483a
+pkgver=1.5.1.4.g8ee5bbe15
 pkgrel=1
 groups=('blackarch' 'blackarch-webapp')
 pkgdesc='A feature-full, modular, high-performance Ruby framework aimed towards helping penetration testers and administrators evaluate the security of web applications.'
@@ -19,8 +19,7 @@ sha1sums=('SKIP'
 pkgver() {
   cd "$srcdir/arachni"
 
-  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
-  # git describe --always | sed 's|-|.|g' | sed 's/^v//'
+  git describe --always | sed 's|-|.|g' | sed 's/^v//'
 }
 
 package() {
