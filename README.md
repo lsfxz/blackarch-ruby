@@ -7,7 +7,7 @@ Put it above `[blackarch]`, like so:
 ```
 [obsidian]
 SigLevel = Never
-Server = https://github.com/lsfxz/blackarch-ruby/releases/download/20170227/
+Server = https://github.com/lsfxz/blackarch-ruby/releases/download/20170501/
 
 [blackarch]
 Server = https://www.mirrorservice.org/sites/blackarch.org/blackarch/$repo/os/$arch
