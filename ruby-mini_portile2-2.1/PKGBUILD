@@ -1,8 +1,10 @@
+# Maintainer: lsfxz (https://github.com/lsfxz/quarry)
+# Many thanks to anatol for quarry and gem2arch!
 # This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
-pkgname='ruby-mini_portile2'
+pkgname='ruby-mini_portile2-2.1'
 _gemname='mini_portile2'
-pkgver='2.2.0'
+pkgver='2.1.0'
 pkgrel=1
 pkgdesc="Simplistic port-like solution for developers"
 arch=('any')
@@ -12,7 +14,7 @@ depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('8ab95480c047d008eb79715797b25b1b2671c124' )
+sha1sums=('aea77f06baad406f15e156c86098bdcd140756c2' )
 
 
 package() {
