@@ -13,7 +13,7 @@ groups=(openvas)
 # These URLs need to be manually updated on every pkgver upgrade.
 # http://wald.intevation.org/frs/?group_id=29
 source=("http://wald.intevation.org/frs/download.php/2420/$pkgname-${pkgver}.tar.gz"
-        "http://wald.intevation.org/frs/download.php/2420/$pkgname-${pkgver}.tar.gz.sig")
+        "http://wald.intevation.org/frs/download.php/2421/$pkgname-${pkgver}.tar.gz.sig")
 sha256sums=('4ee3f8f8b082238ac3bc67437aab2069417c0c60342530acbec572e0708e5aeb'
             'SKIP')
 validpgpkeys=(

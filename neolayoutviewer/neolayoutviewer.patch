@@ -1,0 +1,12 @@
+diff -aur NeoLayoutViewer/src/config-manager.vala NeoLayoutViewer_p/src/config-manager.vala
+--- NeoLayoutViewer/src/config-manager.vala	2016-05-06 19:53:56.364876559 +0200
++++ NeoLayoutViewer_p/src/config-manager.vala	2016-05-06 21:46:15.106039491 +0200
+@@ -83,7 +83,7 @@
+ 			addSetting("screen_width","auto", "Set the resolution of your screen manually, if the automatic detection fails.");
+ 			addSetting("screen_height","auto", "Set the resolution of your screen manually, if the automatic detection fails.");
+ 			addSetting("show_on_startup","1", "Show window on startup.");
+-			addSetting("asset_folder","./assets", "Default lookup folder image data.");
++			addSetting("asset_folder", "/usr/share/NeoLayoutViewer/assets", "Default lookup folder image data.");
+ 		}
+ 
+ 		/*

@@ -1,7 +1,7 @@
 # $Id$
 # Maintainer: Daniel Micay <danielmicay@gmail.com>
 pkgname=openvas-manager
-pkgver=7.0.1
+pkgver=7.0.2
 pkgrel=1
 pkgdesc='A layer between the OpenVAS Scanner and various client applications'
 arch=('i686' 'x86_64')
@@ -14,9 +14,9 @@ groups=(openvas)
 install=$pkgname.install
 # These URLs need to be manually updated on every pkgver upgrade.
 # http://wald.intevation.org/frs/?group_id=29
-source=("http://wald.intevation.org/frs/download.php/2426/$pkgname-${pkgver}.tar.gz"
-        "http://wald.intevation.org/frs/download.php/2427/$pkgname-${pkgver}.tar.gz.sig")
-md5sums=('a8a6322ed75ad8307a3797f698caf53a'
+source=("http://wald.intevation.org/frs/download.php/2448/$pkgname-${pkgver}.tar.gz"
+        "http://wald.intevation.org/frs/download.php/2449/$pkgname-${pkgver}.tar.gz.sig")
+md5sums=('128076ece483eb45df7b22df8670ab5f'
          'SKIP')
 validpgpkeys=(
               'C3B468D2288C68B9D526452248479FF648DB4530' # OpenVAS Transfer Integrity
