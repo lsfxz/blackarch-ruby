@@ -2,15 +2,15 @@
 # See COPYING for license details.
 
 pkgname='vane'
-pkgver=1881.966ccd1
-pkgrel=1
+pkgver=1882.f4b14f9
+pkgrel=2
 groups=('blackarch' 'blackarch-scanner' 'blackarch-webapp' 'blackarch-fuzzer')
 pkgdesc='A vulnerability scanner which checks the security of WordPress installations using a black box approach.'
 arch=('any')
 url='https://github.com/delvelabs/vane'
 license=('GPL3')
 makedepends=('git')
-depends=('ruby' 'libxslt' 'libyaml' 'ruby-typhoeus' 'ruby-nokogiri' 'ruby-addressable' 'ruby-json' 'ruby-terminal-table' 'ruby-ruby-progressbar')
+depends=('ruby' 'libxslt' 'libyaml' 'ruby-typhoeus-0.7' 'ruby-nokogiri' 'ruby-addressable' 'ruby-json' 'ruby-terminal-table' 'ruby-ruby-progressbar')
 options=(!strip)
 source=('git+https://github.com/delvelabs/vane.git')
 sha1sums=('SKIP')

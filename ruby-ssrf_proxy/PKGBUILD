@@ -42,4 +42,3 @@ package() {
   install -D -m644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
 
   rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$_gemver"/{LICENSE.md,README.md}
-}

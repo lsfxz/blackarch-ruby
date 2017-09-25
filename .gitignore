@@ -1,0 +1,12 @@
+tags
+.tags
+*.tar.gz.sig
+*.tar.gz
+*.tar.bz
+*.log
+*.gem
+*.pkg.tar.xz
+*.tar.bz2
+.notags
+*.zip
+*.sample
