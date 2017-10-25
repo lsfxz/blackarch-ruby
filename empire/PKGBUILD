@@ -29,8 +29,8 @@ pkgver() {
 
 package() {
   cd "$srcdir/Empire"
-  # fix deprecated calls to OpenSSL.rand.bytes until fixed upstream
-  # ...fixed in a better way then restricting the pyopenssl version..
+  # patch deprecated calls to OpenSSL.rand.bytes until fixed upstream
+  # ...fixed in a (hopefully) better way than by restricting the pyopenssl version..
   patch -Np1 -i ../pyopenssl.patch
 
   mkdir -p "$pkgdir/usr/bin/"
