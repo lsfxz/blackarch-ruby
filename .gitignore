@@ -10,3 +10,5 @@ tags
 .notags
 *.zip
 *.sample
+*.pkg.tar.xz.sig
+*/*.tgz
