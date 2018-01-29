@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-artii'
 _gemname='artii'
 pkgver='2.1.2'
-pkgrel=1
+pkgrel=2
 pkgdesc="A little Figlet-based ASCII art generator."
 arch=('any')
 url='http://github.com/miketierney/artii'
@@ -18,7 +17,7 @@ sha1sums=('6ffac4753947174726b4ceb3c70c63723fc6ae8e' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

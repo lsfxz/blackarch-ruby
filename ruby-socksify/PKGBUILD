@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-socksify'
 _gemname='socksify'
 pkgver='1.7.1'
-pkgrel=1
+pkgrel=4
 pkgdesc="Redirect all TCPSockets through a SOCKS5 proxy"
 arch=('any')
 url='http://socksify.rubyforge.org/'
@@ -18,7 +17,7 @@ sha1sums=('13b089c01f54877f5f166536d1c1eaef0b07f3ce' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/COPYING"

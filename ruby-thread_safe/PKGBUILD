@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-thread_safe'
 _gemname='thread_safe'
 pkgver='0.3.6'
-pkgrel=1
+pkgrel=5
 pkgdesc="Thread-safe collections and utilities for Ruby"
 arch=('any')
 url='https://github.com/ruby-concurrency/thread_safe'
@@ -18,7 +17,7 @@ sha1sums=('5a60162d065d0f479d61ba0a11734b44f5f7ef19' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-celluloid-io'
 _gemname='celluloid-io'
 pkgver='0.17.3'
-pkgrel=1
+pkgrel=4
 pkgdesc="Celluloid::IO allows you to monitor multiple IO objects within a Celluloid actor"
 arch=('any')
 url='http://github.com/celluloid/celluloid-io'
@@ -18,7 +17,7 @@ sha1sums=('21d0d7f7af63ab3368bc615c1161d509a9fcbe44' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"

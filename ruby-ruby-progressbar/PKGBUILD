@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-ruby-progressbar'
 _gemname='ruby-progressbar'
 pkgver='1.9.0'
-pkgrel=1
+pkgrel=4
 pkgdesc="Ruby/ProgressBar is a flexible text progress bar library for Ruby."
 arch=('any')
 url='https://github.com/jfelchner/ruby-progressbar'
@@ -18,7 +17,7 @@ sha1sums=('0f115658e414b65e3e080fe2243c7c157833a189' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"

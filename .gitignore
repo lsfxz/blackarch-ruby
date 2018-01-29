@@ -12,3 +12,5 @@ tags
 *.sample
 *.pkg.tar.xz.sig
 */*.tgz
+buildshit
+buildshit/**

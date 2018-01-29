@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-jruby-jars'
 _gemname='jruby-jars'
-pkgver='9.1.13.0'
-pkgrel=1
+pkgver='9.1.15.0'
+pkgrel=4
 pkgdesc="The core JRuby code and the JRuby stdlib as jar files."
 arch=('any')
 url='https://github.com/jruby/jruby/tree/master/maven/jruby-jars'
@@ -14,11 +13,11 @@ depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('7134a3d34f3984be7d74800a8d65e68a83d426e0' )
+sha1sums=('fdd6de57ffbd79818323c6f0dc30a103c44dbc89' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

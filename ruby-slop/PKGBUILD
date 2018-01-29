@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-slop'
 _gemname='slop'
-pkgver='4.6.0'
-pkgrel=1
+pkgver='4.6.1'
+pkgrel=4
 pkgdesc="Simple Lightweight Option Parsing"
 arch=('any')
 url='http://github.com/leejarvis/slop'
@@ -14,11 +13,11 @@ depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('4ed5b3c73c10f68456c0ad79c647142beace88e1' )
+sha1sums=('63ac4c31ebabc50758aec5f1f36bfc34706e2603' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

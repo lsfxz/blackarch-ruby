@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-rubyzip'
 _gemname='rubyzip'
 pkgver='1.2.1'
-pkgrel=1
+pkgrel=4
 pkgdesc="rubyzip is a ruby module for reading and writing zip files"
 arch=('any')
 url='http://github.com/rubyzip/rubyzip'
@@ -18,7 +17,7 @@ sha1sums=('6db27c04c4051fdd163a759d294a66e89438ccbe' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

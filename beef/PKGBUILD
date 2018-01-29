@@ -1,8 +1,7 @@
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='beef'
-pkgver=2962.22e7ded3
+pkgver=2993.521e5c3e
 pkgrel=1
 epoch=1
 groups=('blackarch' 'blackarch-exploitation')

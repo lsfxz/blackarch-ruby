@@ -1,4 +1,4 @@
-# This file is part of BlackArch Linux ( http://blackarch.org ).
+# Maintainer: lsfxz (https://github.com/lsfxz/quarry)
 # See COPYING for license details.
 pkgname='ruby-bettercap'
 _gemname='bettercap'
@@ -36,7 +36,7 @@ build() {
 
 package() {
   cd "$srcdir/$_gemname"
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$_gemver.gem
   rm "$pkgdir/$_gemdir/cache/$_gemname-$_gemver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$_gemver/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.md"

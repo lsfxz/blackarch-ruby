@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-parslet'
 _gemname='parslet'
-pkgver='1.8.0'
-pkgrel=1
+pkgver='1.8.1'
+pkgrel=3
 pkgdesc="Parser construction library with great error reporting in Ruby."
 arch=('any')
 url='http://kschiess.github.io/parslet'
@@ -14,11 +13,11 @@ depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('13ecd1ed62bcc592c5b91d648ee7d3459cb96fee' )
+sha1sums=('19c0b48ee55bdf41b2c85c7beca56c06b8172610' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

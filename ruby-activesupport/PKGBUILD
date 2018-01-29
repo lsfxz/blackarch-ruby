@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-activesupport'
 _gemname='activesupport'
 pkgver='5.1.4'
-pkgrel=1
+pkgrel=5
 pkgdesc="A toolkit of support libraries and Ruby core extensions extracted from the Rails framework."
 arch=('any')
 url='http://rubyonrails.org'
@@ -18,7 +17,7 @@ sha1sums=('733a4ce7bc5f89e8f5c63befd2e4bfe2432feed4' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/MIT-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/MIT-LICENSE"

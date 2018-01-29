@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-rchardet'
 _gemname='rchardet'
-pkgver='1.6.1'
-pkgrel=1
+pkgver='1.7.0'
+pkgrel=4
 pkgdesc="Character encoding auto-detection in Ruby. As smart as your browser. Open source."
 arch=('any')
 url='https://github.com/jmhodges/rchardet'
@@ -14,11 +13,11 @@ depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('31442a2fb9ee223ddce4ad62f0729807340060e1' )
+sha1sums=('96b8d6516d57870e1e56fc282a1fd2d6be2f4db1' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

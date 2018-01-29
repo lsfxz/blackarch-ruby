@@ -1,24 +1,23 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-rdoc'
 _gemname='rdoc'
-pkgver='5.1.0'
-pkgrel=1
+pkgver='6.0.1'
+pkgrel=4
 pkgdesc="RDoc produces HTML and command-line documentation for Ruby projects"
 arch=('any')
-url='https://rdoc.github.io/rdoc'
+url='https://ruby.github.io/rdoc'
 license=("Ruby")
 depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('3ad6a195ebb899933a71018080e4868453660f1a' )
+sha1sums=('ba0979650b3637cd00126d50d631e381caff72a7' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.rdoc" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.rdoc"

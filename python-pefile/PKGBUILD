@@ -1,0 +1,36 @@
+# This file is part of BlackArch Linux ( http://blackarch.org ).
+# See COPYING for license details.
+
+pkgname='python-pefile'
+pkgver='2017.11.5'
+pkgrel=1
+pkgdesc='This is a Python library for PE file support and investigation.'
+arch=('any')
+url='http://code.google.com/p/pefile/'
+license=('MIT')
+depends=('python' 'python-future')
+makedepends=('python-distribute')
+source=("https://pypi.python.org/packages/7e/9b/f99171190f04cd23768547dd34533b4016bd582842f53cd9fe9585a74c74/pefile-${pkgver}.tar.gz"
+        'UserDB.TXT'
+        'userdb.txt')
+sha1sums=('48bbdc14b36ba48e4d6f2aecd06cc36a440e46a9'
+          'e63369562182c8da5a4e7a59cebad0455b4c250f'
+          '2f332fd81bf96eadd6b349a2edbcf5f447a13fa6')
+
+build() {
+  cd "$srcdir/pefile-$pkgver"
+
+  python3 setup.py build
+}
+
+package() {
+  cd "$srcdir/pefile-$pkgver"
+
+  mkdir -p "$pkgdir/usr/share/pefile"
+
+  python3 setup.py install -O1 --skip-build --root="$pkgdir" --prefix="/usr"
+
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/python-pefile/LICENSE"
+  install -Dm644 ../UserDB.TXT "$pkgdir/usr/share/pefile/UserDB.TXT"
+  install -Dm644 ../userdb.txt "$pkgdir/usr/share/pefile/userdb.txt"
+}

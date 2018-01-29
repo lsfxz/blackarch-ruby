@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-vcsmap'
 _gemname='vcsmap'
 pkgver='2.0.2'
-pkgrel=1
+pkgrel=5
 pkgdesc="Scans public repositories for sensitive information."
 arch=('any')
 url='http://vcsmap.org'
@@ -22,7 +21,7 @@ sha1sums=('5c0a2466b3e6987240dd29f9fcf660e215fb0d2d' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

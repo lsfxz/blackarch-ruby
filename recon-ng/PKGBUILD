@@ -1,0 +1,46 @@
+# See COPYING for license details.
+
+pkgname='recon-ng'
+pkgver='4.9.3'
+pkgrel=1
+epoch=1
+groups=('blackarch' 'blackarch-recon')
+pkgdesc='A full-featured Web Reconnaissance framework written in Python.'
+arch=('any')
+url='https://bitbucket.org/LaNMaSteR53/recon-ng'
+license=('GPL3')
+depends=('python2' 'python2-dicttoxml' 'python2-dnspython'
+         'python2-jsonrpclib-pelix'
+         'python2-lxml' 'python2-mechanize' 'python2-slowaes'
+         'python2-xlsxwriter' 'python2-olefile' 'python2-pypdf2'
+         'python2-flask' 'python2-unicodecsv')
+makedepends=('git')
+source=("https://bitbucket.org/LaNMaSteR53/recon-ng/get/v${pkgver}.tar.bz2")
+sha1sums=('f94d945d2fa0551caf5a5d5e91143603cce23a94')
+
+package() {
+  cd "$srcdir/LaNMaSteR53-recon-ng-c83599e52159"
+
+  local _bins='recon-ng recon-cli recon-rpc recon-web'
+
+  mkdir -p "$pkgdir/usr/bin"
+  mkdir -p "$pkgdir/usr/share/recon-ng"
+
+  install -Dm644 -t "$pkgdir/usr/share/doc/recon-ng" \
+      README.md REQUIREMENTS VERSION
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/recon-ng/LICENSE"
+
+  rm LICENSE README.md
+
+  cp -a * "$pkgdir/usr/share/recon-ng"
+
+  for bin in $_bins
+  do
+    cat >> "$pkgdir/usr/bin/$bin" << EOF
+#!/bin/sh
+
+exec python2 /usr/share/recon-ng/$bin "\${@}"
+EOF
+    chmod +x "$pkgdir/usr/bin/$bin"
+  done
+}

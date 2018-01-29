@@ -1,0 +1,22 @@
+pkgname=halberd
+pkgver=318.ec50530
+pkgrel=1
+pkgdesc="Tool to discover HTTP load balancers"
+url='https://github.com/jmbr/halberd'
+license=("GPL")
+depends=('python2')
+arch=('i686' 'x86_64')
+makedepends=('git' 'python2-setuptools')
+source=("git+https://github.com/jmbr/$pkgname.git")
+sha512sums=('SKIP')
+
+pkgver() {
+    cd "${pkgname}"
+    echo $(git rev-list --count master).$(git rev-parse --short master)
+}
+
+package() {
+  cd "$srcdir/halberd"
+
+  python2 setup.py install --prefix=/usr --root=$pkgdir --optimize=1
+}

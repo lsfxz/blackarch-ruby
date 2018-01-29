@@ -1,24 +1,23 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-webrick'
 _gemname='webrick'
-pkgver='1.3.1'
-pkgrel=1
-pkgdesc="WEBrick is an HTTP server toolkit that can be configured as an HTTPS server,"
+pkgver='1.4.2'
+pkgrel=4
+pkgdesc="HTTP server toolkit"
 arch=('any')
-url='http://github.com/nahi/webrick'
-license=("")
+url='https://www.ruby-lang.org'
+license=("BSD-2-Clause")
 depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('5e0a163a652b17675168e56c0fa1f296a97f7a30' )
+sha1sums=('d40f5502060d95d18cc8756975080f0712db2f63' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

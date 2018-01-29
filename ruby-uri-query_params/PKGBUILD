@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-uri-query_params'
 _gemname='uri-query_params'
 pkgver='0.7.1'
-pkgrel=1
+pkgrel=5
 pkgdesc="Access the query parameters of a URI, just like $_GET in PHP."
 arch=('any')
 url='https://github.com/postmodern/uri-query_params'
@@ -18,7 +17,7 @@ sha1sums=('0408fd0f2492eeaf45c4c546439424ba0a5fc397' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"

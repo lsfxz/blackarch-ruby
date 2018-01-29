@@ -1,22 +1,23 @@
-# This file is part of BlackArch Linux ( http://blackarch.org ).
+# Maintainer: lsfxz (https://github.com/lsfxz/quarry)
 # See COPYING for license details.
+
 pkgname='ruby-sass'
 _gemname='sass'
-pkgver='3.4.24'
+pkgver='3.5.5'
 pkgrel=1
 pkgdesc="A powerful but elegant CSS compiler that makes CSS fun again."
 arch=('any')
 url='http://sass-lang.com/'
 license=("MIT")
-depends=('ruby')
+depends=('ruby' 'ruby-sass-listen')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('e86bcb8c13f7f8f4e4f785e1a9743eb50142f8b0' )
+sha1sums=('b9a9ed5609935d0ed1ca08bc587c4e038bb07d7a' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/MIT-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/MIT-LICENSE"

@@ -1,10 +1,9 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-i18n'
 _gemname='i18n'
-pkgver='0.9.0'
+pkgver='0.9.3'
 pkgrel=1
 pkgdesc="New wave Internationalization support for Ruby"
 arch=('any')
@@ -14,11 +13,11 @@ depends=('ruby' 'ruby-concurrent-ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('da5994ac1b322677fe68f496077797fa416bd109' )
+sha1sums=('36a813acf7e1bd69ed4b7fb636a9d64b25d01877' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/MIT-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/MIT-LICENSE"

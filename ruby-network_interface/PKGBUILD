@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-network_interface'
 _gemname='network_interface'
 pkgver='0.0.2'
-pkgrel=1
+pkgrel=3
 pkgdesc="A cross platform gem to help get network interface information"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h' 'aarch64')
 url='https://github.com/rapid7/network_interface'
@@ -18,7 +17,7 @@ sha1sums=('9492d607d88b1340576b5aa4da9a35b107b28381' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
@@ -30,7 +29,7 @@ package() {
   rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
   mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
 
-  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
-  mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
-  touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
+  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
+  mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
+  touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
 }

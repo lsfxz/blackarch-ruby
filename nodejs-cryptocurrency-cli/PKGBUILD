@@ -1,0 +1,30 @@
+# Maintainer: Matthew Hague <matthewhague@zoho.com>
+
+_npmname=cryptocurrency-cli
+pkgname=nodejs-cryptocurrency-cli-git
+pkgver=21.ea938be
+pkgrel=2
+pkgdesc='Cryptocurrency Portfolio On The Command Line'
+arch=(any)
+url='http://github.com/lsfxz/cryptocurrency-cli'
+license=('MIT')
+depends=('nodejs')
+optdepends=()
+makedepends=('npm' 'git')
+source=($pkgname::git://github.com/lsfxz/cryptocurrency-cli.git)
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+package() {
+  local _npmdir="$pkgdir/usr/lib/node_modules/"
+  mkdir -p $_npmdir
+  cd $srcdir/$pkgname
+  # npm install -g --prefix "$pkgdir/usr" .
+  npm install -g --prefix "$pkgdir/usr" "git://github.com/lsfxz/cryptocurrency-cli.git"
+  chmod -R og-w "$_npmdir"
+  chmod -R og-w "$pkgdir/usr/bin"
+}

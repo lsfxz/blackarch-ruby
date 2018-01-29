@@ -1,0 +1,23 @@
+# See COPYING for license details.
+
+pkgname=python2-phply
+_pyname=phply
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="Lexer and parser for PHP source implemented using PLY"
+url="https://github.com/viraptor/phply"
+arch=('any')
+license=('BSD')
+depends=('python2' 'python2-ply')
+makedepends=('python2-setuptools')
+source=(${pkgname}-${pkgver}.tar.gz::https://github.com/viraptor/${_pyname}/archive/${pkgver}.tar.gz)
+md5sums=('56e9d5563f3260b6155d10d30712eeb2')
+
+package() {
+  cd ${_pyname}-${pkgver}
+  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  python2 setup.py install -O1 --root="$pkgdir/" --prefix=/usr
+  # Fix a conflict with community/python2-poster.
+  # This probably shouldn't be here anyways.
+  rm -rf "$pkgdir/usr/lib/python2.7/site-packages/tests"
+}

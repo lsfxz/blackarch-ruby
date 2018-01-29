@@ -1,7 +1,7 @@
 pkgname=gem-home-git
 _pkgname=gem_home
 pkgver=0.1.0.r15.b15be40
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool for changing your $GEM_HOME'
 arch=('any')
 url="https://github.com/postmodern/gem_home.git"
@@ -14,7 +14,7 @@ conflicts=("${pkgname%-git}")
 source=("git+$url"
 	'profile-d.gem_home.sh')
 md5sums=('SKIP'
-         '3f98a1287ac13b0612920c79465d8b19')
+         '0cf100a4ff64c769ccb9f5c1c55ae05e')
 
 pkgver() {
 	cd "$srcdir/${_pkgname%}"

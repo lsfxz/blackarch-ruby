@@ -1,0 +1,24 @@
+# See COPYING for license details.
+
+pkgname='python2-pluginbase'
+pkgver='0.5'
+pkgrel=2
+pkgdesc='A support library for building plugins sytems in Python.'
+arch=('any')
+url='http://pypi.python.org/pypi/pluginbase'
+license=('BSD')
+depends=('python2')
+source=("https://pypi.python.org/packages/c9/ff/07c41bc912441a2aec3e6c08323d01fda3fc1e07e5f0ac3e9d6a61f189b6/pluginbase-${pkgver}.tar.gz")
+sha1sums=('00eeece25a6515dd57aa360d11ebbbea6b721e1c')
+
+build() {
+  cd "$srcdir/pluginbase-$pkgver"
+
+  python2 setup.py build
+}
+
+package() {
+  cd "$srcdir/pluginbase-$pkgver"
+
+  python2 setup.py install --root="$pkgdir" --optimize=1
+}

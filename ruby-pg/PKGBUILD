@@ -1,10 +1,9 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-pg'
 _gemname='pg'
-pkgver='0.21.0'
+pkgver='1.0.0'
 pkgrel=1
 pkgdesc="Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/]"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h' 'aarch64')
@@ -14,11 +13,11 @@ depends=('postgresql-libs' 'ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('a0e124a761fc0c9cb0e1518d91370f867faadb42' )
+sha1sums=('ef2bbde400a47744aea9b32948331d0ad318c3d2' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
@@ -30,7 +29,7 @@ package() {
   rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
   mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
 
-  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
-  mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
-  touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
+  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
+  mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
+  touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
 }

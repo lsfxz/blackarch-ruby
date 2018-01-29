@@ -1,5 +1,5 @@
 diff --git a/data/agent/stagers/dropbox.py b/data/agent/stagers/dropbox.py
-index cfb8831..6299e8e 100644
+index b840eeb..ce22ec3 100644
 --- a/data/agent/stagers/dropbox.py
 +++ b/data/agent/stagers/dropbox.py
 @@ -52,14 +52,9 @@ for name, ID in ADDITIONAL.items(): ADDITIONAL_IDS[ID] = name
@@ -20,18 +20,11 @@ index cfb8831..6299e8e 100644
  except:
      random_function = os.urandom
      random_provider = "os.urandom"
-@@ -892,4 +887,4 @@ response = post_message("https://api.dropboxapi.com/2/files/delete",data=datastr
- 
- # step 6 -> server sends HMAC(AES)
- agent = aes_decrypt_and_verify(key, raw)
--exec(agent)
-\ No newline at end of file
-+exec(agent)
 diff --git a/data/agent/stagers/http.py b/data/agent/stagers/http.py
-index 0a06c5a..edc744d 100644
+index 7871fdf..d9b7251 100644
 --- a/data/agent/stagers/http.py
 +++ b/data/agent/stagers/http.py
-@@ -53,14 +53,9 @@ for name, ID in ADDITIONAL.items(): ADDITIONAL_IDS[ID] = name
+@@ -55,14 +55,9 @@ for name, ID in ADDITIONAL.items(): ADDITIONAL_IDS[ID] = name
  
  # If a secure random number generator is unavailable, exit with an error.
  try:
@@ -85,3 +78,43 @@ index 6adfac8..9931ec2 100644
  
          return _rand
  
+diff --git a/setup/install.sh b/setup/install.sh
+index dd84bba..6c8ecba 100755
+--- a/setup/install.sh
++++ b/setup/install.sh
+@@ -27,7 +27,7 @@ if lsb_release -d | grep -q "Fedora"; then
+ 	pip install flask
+ 	pip install macholib
+ 	pip install dropbox
+-	pip install 'pyopenssl==17.2.0'
++	pip install pyopenssl
+ 	pip install pyinstaller
+ 	pip install zlib_wrapper
+ 	pip install netifaces
+@@ -44,7 +44,7 @@ elif lsb_release -d | grep -q "Kali"; then
+ 	pip install flask
+ 	pip install macholib
+ 	pip install dropbox
+-	pip install 'pyopenssl==17.2.0'
++	pip install pyopenssl
+ 	pip install pyinstaller
+ 	pip install zlib_wrapper
+ 	pip install netifaces
+@@ -85,7 +85,7 @@ elif lsb_release -d | grep -q "Ubuntu"; then
+ 	pip install pyOpenSSL
+ 	pip install macholib
+ 	pip install dropbox
+-	pip install 'pyopenssl==17.2.0'
++	pip install pyopenssl
+ 	pip install pyinstaller
+ 	pip install zlib_wrapper
+ 	pip install netifaces
+@@ -115,7 +115,7 @@ else
+ 	 pip install dropbox
+ 	 pip install cryptography
+ 	 pip install pyOpenSSL
+-	 pip install 'pyopenssl==17.2.0'
++	 pip install pyopenssl
+ 	 pip install zlib_wrapper
+ 	 pip install netifaces
+ 	 pip install M2Crypto

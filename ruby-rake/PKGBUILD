@@ -1,0 +1,35 @@
+# Maintainer: lsfxz (https://github.com/lsfxz/quarry)
+# See COPYING for license details.
+
+pkgname='ruby-rake'
+_gemname='rake'
+pkgver='12.3.0'
+pkgrel=4
+pkgdesc="Rake is a Make-like program implemented in Ruby"
+arch=('any')
+url='https://github.com/ruby/rake'
+license=("MIT")
+depends=('ruby')
+     optdepends=( 'ruby-spring-watcher-listen: faster Application reload'  'ruby-sqlite3: database for Active Record'  'ruby-sass-rails: SCSS for stylesheets'  'ruby-uglifier: compressor for JavaScript assets'  'ruby-coffee-rails: CoffeeScript for .coffee assets and views'  'ruby-jquery-rails: jquery as the JavaScript library'  'ruby-turbolinks: makes following links in your web application faster'  'ruby-jbuilder: Build JSON APIs with ease'  'ruby-sdoc: bundle exec rake doc:rails generates the API under doc/api'  'ruby-bcrypt: Use ActiveModel has_secure_password'  'ruby-unicorn: app server for rails applications'  'ruby-capistrano-rails: Capistrano support for rails applications'  'ruby-byebug: live debugger for rails apps'  'ruby-web-console: Access an IRB console on exception pages'  'ruby-spring: speeds up development by keeping your application running in the background' )
+options=('!emptydirs')
+source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
+noextract=("$_gemname-$pkgver.gem")
+sha1sums=('8f9e0c0a5fc64bb5d5d4343224ea11497fc1e653' )
+
+
+package() {
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
+  gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
+  rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/MIT-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/MIT-LICENSE"
+  # non-HEAD version should not install any files in /usr/bin
+  rm -r "$pkgdir"/usr/bin/
+
+  # Preserve library and other required directories. Remove junk that gem installs.
+  local _copydir=`mktemp -d -t $_gemname.XXX`
+  chmod 755 $_copydir
+  (cd "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/ && cp -r --parents exe $_copydir)
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
+  mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
+
+}

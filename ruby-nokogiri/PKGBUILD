@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-nokogiri'
 _gemname='nokogiri'
 pkgver='1.8.1'
-pkgrel=2
+pkgrel=5
 pkgdesc="Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h' 'aarch64')
 url='http://nokogiri.org'
@@ -18,7 +17,7 @@ sha1sums=('07ae5eeb780e90cdad7bd4ad110f28003a9e91b3' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE-DEPENDENCIES.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE-DEPENDENCIES.md"
@@ -31,7 +30,7 @@ package() {
   rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
   mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
 
-  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
-  mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
-  touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
+  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
+  mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
+  touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
 }

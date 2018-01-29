@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-net-http-digest_auth'
 _gemname='net-http-digest_auth'
 pkgver='1.4.1'
-pkgrel=1
+pkgrel=2
 pkgdesc="An implementation of RFC 2617 - Digest Access Authentication"
 arch=('any')
 url='http://github.com/drbrain/net-http-digest_auth'
@@ -18,7 +17,7 @@ sha1sums=('64151d4052f01f9cb3a6d2ecd434578f4baab73f' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-ethon'
 _gemname='ethon'
-pkgver='0.10.1'
-pkgrel=1
+pkgver='0.11.0'
+pkgrel=4
 pkgdesc="Libcurl wrapper."
 arch=('any')
 url='https://github.com/typhoeus/ethon'
@@ -14,11 +13,11 @@ depends=('ruby' 'ruby-ffi')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('0e362edc1035fa4adc3e52fcc27d15e796e6e9cf' )
+sha1sums=('3c921ceeb2847be8cfa25704be74923e233786bd' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

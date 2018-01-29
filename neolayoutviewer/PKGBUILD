@@ -1,6 +1,6 @@
 pkgname=neolayoutviewer-git
-pkgver=r83.1c596d2
-pkgrel=2
+pkgver=r91.3b57b6c
+pkgrel=1
 pkgdesc="On-Screen-Viewer for the Neo Layout"
 arch=('x86_64' 'x86')
 url="https://github.com/YggdrasiI/NeoLayoutViewer"

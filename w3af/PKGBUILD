@@ -1,0 +1,61 @@
+# See COPYING for license details.
+
+pkgname='w3af'
+pkgver='1.6.49'
+pkgrel=6
+groups=('blackarch' 'blackarch-fuzzer' 'blackarch-scanner' 'blackarch-webapp')
+pkgdesc='Web Application Attack and Audit Framework.'
+arch=('any')
+url='http://w3af.sourceforge.net/'
+license=('GPL')
+depends=('python2' 'python2-clamd' 'python2-pybloomfiltermmap' 'python2-esmre'
+          'python2-phply' 'python2-pysqlite' 'python2-nltk' 'python2-chardet'
+         'python2-pdfminer' 'python2-futures' 'python2-pyopenssl' 'python2-lxml'
+         'scapy' 'python2-guess-language' 'python2-cluster' 'python2-msgpack'
+         'sqlite' 'python2-ntlm' 'python2-pygithub' 'python2-gitpython'
+         'graphviz' 'pygtksourceview2' 'pygtk' 'gtk2' 'python2-beautifulsoup3'
+         'python2-xdot' 'libxml2' 'libxslt' 'libyaml' 'python2-yaml'
+         'python2-vulndb' 'python2-pip' 'python2-stopit' 'python2-dartspylru'
+         'halberd' 'python2-tblib' 'python2-ndg-httpsclient' 'python2-pyasn1'
+         'python2-markdown' 'python2-jinja' 'python2-psutil' 'python2-termcolor'
+         'python2-mitmproxy' 'python2-ruamel.ordereddict' 'python2-pebble')
+options=('!strip')
+source=("https://github.com/andresriancho/w3af/archive/${pkgver}.tar.gz"
+        'w3af.desktop')
+sha1sums=('872ce20ecb216aede0a04a58cf2a63ddd38f2af8'
+          'fe0416f1dcca30e817d19c79c57a6a62b9579685')
+
+prepare() {
+  cd "$srcdir/w3af-$pkgver"
+
+  # Enforce python2
+  grep -iRl 'python' . | xargs sed -i 's|#!.*/usr/bin/python|#!/usr/bin/python2|;s|#!.*/usr/bin/env python$|#!/usr/bin/env python2|'
+
+  # Remove dependency checks.
+  sed -i 's/dependency_check()/#&/' w3af_{console,gui}
+}
+
+package() {
+  cd "$srcdir/w3af-$pkgver"
+
+  mkdir -p "$pkgdir/usr/bin"
+  mkdir -p "$pkgdir/usr/share/w3af"
+  mkdir -p "$pkgdir/usr/share/applications"
+
+  cp --no-preserve=ownership -a * "$pkgdir/usr/share/w3af"
+
+  install -Dm644 "$srcdir/w3af.desktop" "$pkgdir/usr/share/applications"
+
+  cat > "$pkgdir/usr/bin/w3af" << EOF
+#!/bin/sh
+exec python2 /usr/share/w3af/w3af_console "\$@"
+EOF
+
+  cat > "$pkgdir/usr/bin/w3af-gui" << EOF
+#!/bin/sh
+exec python2 /usr/share/w3af/w3af_gui "\$@"
+EOF
+
+  chmod +x "$pkgdir/usr/share/w3af"/w3af_{console,gui} \
+    "$pkgdir/usr/bin"/{w3af,w3af-gui}
+}

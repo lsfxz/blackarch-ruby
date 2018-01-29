@@ -1,7 +1,7 @@
 _npmname=remark
 pkgname=nodejs-$_npmname
 pkgver=8.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A markdown processor powered by plug-ins"
 arch=('any')
 url="https://remark.js.org"
@@ -17,6 +17,7 @@ package() {
   local _npmdir="$pkgdir/usr/lib/node_modules/"
   mkdir -p "$_npmdir"
   cd "$_npmdir"
-  npm install -g --prefix "$pkgdir/usr" $_npmname@$pkgver
+  npm install -g --user root --prefix "$pkgdir/usr" $_npmname@$pkgver
+  chmod -R og-w "$_npmdir"
 }
 

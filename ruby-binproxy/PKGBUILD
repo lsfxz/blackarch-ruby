@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-binproxy'
 _gemname='binproxy'
 pkgver='1.0.0'
-pkgrel=1
+pkgrel=2
 pkgdesc="BinProxy"
 arch=('any')
 url='https://github.com/nccgroup/BinProxy'
@@ -22,7 +21,7 @@ sha1sums=('65d941c8b99bd5ea0b1f296602c8e85f7416206d' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

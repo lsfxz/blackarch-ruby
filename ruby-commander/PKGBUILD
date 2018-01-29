@@ -1,10 +1,9 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-commander'
 _gemname='commander'
-pkgver='4.4.3'
+pkgver='4.4.4'
 pkgrel=1
 pkgdesc="The complete solution for Ruby command-line executables"
 arch=('any')
@@ -14,11 +13,11 @@ depends=('ruby' 'ruby-highline')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('a0d7e196b04c31856c8b4dea853bc4d7d0f2d8e2' )
+sha1sums=('65a609fcda7c0a1f56bc32506ca2ed153bad7822' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

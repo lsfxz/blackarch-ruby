@@ -1,27 +1,26 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-netaddr'
 _gemname='netaddr'
-pkgver='1.5.1'
+pkgver='2.0.1'
 pkgrel=1
-pkgdesc="A package for manipulating network addresses."
+pkgdesc="A Ruby library for performing calculations on IPv4 and IPv6 subnets."
 arch=('any')
-url=''''
+url='https://github.com/dspinhirne/netaddr-rb'
 license=("Apache-2.0")
 depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('abd1b92e3f7743496633583e643ce227836d0ae0' )
+sha1sums=('c8025d42f4730552330aa49e5869bb6fc2468cc5' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
-  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/license" "$pkgdir/usr/share/licenses/$pkgname/license"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
   # Preserve library and other required directories. Remove junk that gem installs.
   local _copydir=`mktemp -d -t $_gemname.XXX`

@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-mini_portile'
 _gemname='mini_portile'
-pkgver=0.7.0.rc4
-pkgrel=3
+pkgver='0.6.2'
+pkgrel=2
 pkgdesc="Simplistic port-like solution for developers"
 arch=('any')
 url='http://github.com/flavorjones/mini_portile'
@@ -14,11 +13,11 @@ depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
 noextract=("$_gemname-$pkgver.gem")
-sha1sums=('414fb079e2e5fbec29cd5b54d13aa8ff6375c02f')
+sha1sums=('696b940eb4ff8076a2080684046da1d2b10f41b8' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"

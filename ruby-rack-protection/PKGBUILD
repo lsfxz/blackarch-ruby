@@ -1,9 +1,10 @@
-# This file is part of BlackArch Linux ( http://blackarch.org ).
+# Maintainer: lsfxz (https://github.com/lsfxz/quarry)
 # See COPYING for license details.
+
 pkgname='ruby-rack-protection'
 _gemname='rack-protection'
 pkgver='2.0.0'
-pkgrel=1
+pkgrel=4
 pkgdesc="Protect against typical web attacks, works with all Rack apps, including Rails."
 arch=('any')
 url='http://github.com/sinatra/sinatra/tree/master/rack-protection'
@@ -16,7 +17,7 @@ sha1sums=('f520b8f735a2752d4c947dd028cff98567cf7d6d' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/License" "$pkgdir/usr/share/licenses/$pkgname/License"

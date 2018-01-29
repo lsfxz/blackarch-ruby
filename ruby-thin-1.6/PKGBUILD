@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-thin-1.6'
 _gemname='thin'
 pkgver='1.6.4'
-pkgrel=1
+pkgrel=4
 pkgdesc="A thin and fast web server"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h' 'aarch64')
 url='http://code.macournoyer.com/thin/'
@@ -18,7 +17,7 @@ sha1sums=('adfc60c04215ab4a31235f8f83f6ba1c5dc81912' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   # non-HEAD version should not install any files in /usr/bin
@@ -31,7 +30,7 @@ package() {
   rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
   mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
 
-  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
-  mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
-  touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -rubygems -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
+  rm -rf "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
+  mkdir -p "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/"
+  touch "$pkgdir$_gemdir/extensions/$CARCH/$(ruby -e puts Gem.extension_api_version)/$_gemname-$pkgver/gem.build_complete"
 }

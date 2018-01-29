@@ -1,0 +1,32 @@
+# Maintainer: lsfxz (https://github.com/lsfxz/quarry)
+# See COPYING for license details.
+
+pkgname='ruby-backports'
+_gemname='backports'
+pkgver='3.11.1'
+pkgrel=1
+pkgdesc="Backports of Ruby features for older Ruby."
+arch=('any')
+url='http://github.com/marcandre/backports'
+license=("MIT")
+depends=('ruby')
+options=('!emptydirs')
+source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem" )
+noextract=("$_gemname-$pkgver.gem")
+sha1sums=('a703d520583dcd8526efb3f12fb7615fe2827d5d' )
+
+
+package() {
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
+  gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
+  rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"
+
+  # Preserve library and other required directories. Remove junk that gem installs.
+  local _copydir=`mktemp -d -t $_gemname.XXX`
+  chmod 755 $_copydir
+  (cd "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"/ && cp -r --parents lib $_copydir)
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
+  mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$pkgver"
+
+}

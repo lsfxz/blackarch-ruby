@@ -1,0 +1,19 @@
+# This file is part of BlackArch Linux ( http://blackarch.org ).
+# See COPYING for license details.
+
+pkgname='python2-pebble'
+pkgver='4.3.6'
+pkgrel=1
+pkgdesc='Provides a neat API to manage threads and processes within an application.'
+arch=('x86_64' 'armv6h' 'armv7h' 'aarch64')
+url="https://pypi.python.org/pypi/Pebble"
+license=('LGPL')
+depends=('python2' 'python2-setuptools')
+source=("https://pypi.python.org/packages/08/14/c71b0f53e4f5c72ec030fd0a1ef6620367a921848616afc62f7cd323fc39/Pebble-${pkgver}.tar.gz")
+sha1sums=('31b72ae2a29c20e9e36aa0cd952bee97b2b0b2e5')
+
+package() {
+  cd "$srcdir/Pebble-$pkgver"
+
+  python2 setup.py install --root="$pkgdir" --optimize=1
+}

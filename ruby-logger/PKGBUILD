@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-logger'
 _gemname='logger'
 pkgver='1.2.8'
-pkgrel=1
+pkgrel=4
 pkgdesc="simple logging utility"
 arch=('any')
 url='http://github.com/nahi/logger'
@@ -18,7 +17,7 @@ sha1sums=('ba0b42c485245b4d95712deba793d6175c9c62d7' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 

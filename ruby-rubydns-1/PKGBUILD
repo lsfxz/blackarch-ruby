@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-rubydns-1'
 _gemname='rubydns'
 pkgver='1.0.3'
-pkgrel=1
+pkgrel=4
 pkgdesc="An easy to use DNS server and resolver for Ruby."
 arch=('any')
 url='http://www.codeotaku.com/projects/rubydns'
@@ -18,7 +17,7 @@ sha1sums=('9185f807598cc52df3cd12a2a424ba81ee4dd882' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
   # non-HEAD version should not install any files in /usr/bin

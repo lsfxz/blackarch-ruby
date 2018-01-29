@@ -1,0 +1,62 @@
+# See COPYING for license details.
+
+pkgname='veil'
+pkgver=152.1a7864c
+pkgrel=1
+epoch=3
+groups=('blackarch' 'blackarch-automation' 'blackarch-exploitation')
+pkgdesc='A tool designed to generate metasploit payloads that bypass common anti-virus solutions.'
+url='https://github.com/Veil-Framework/Veil'
+arch=('x86_64' 'i686')
+license=('GPL2')
+depends=('sudo' 'wine' 'wine-mono' 'wine_gecko' 'git' 'python'
+         'python-crypto' 'python-pefile' 'mingw-w64-binutils' 'mingw-w64-crt'
+         'mingw-w64-gcc' 'mingw-w64-headers' 'mingw-w64-winpthreads' 'mono'
+         'mono-tools' 'mono-addins' 'python-pip' 'wget' 'unzip' 'ruby'
+         'python-capstone' 'ca-certificates' 'metasploit'
+         'capstone')
+makedepends=('git')
+source=('git+https://github.com/Veil-Framework/Veil.git'
+        'git+https://github.com/Veil-Framework/VeilDependencies.git'
+        'setupsh_mod.patch')
+install='veil.install'
+sha1sums=('SKIP'
+          'SKIP'
+          '868947f4cefa0b339bc2e5b9f02aab5a4122d7b4')
+options=('!strip')
+
+pkgver() {
+  cd "$srcdir/Veil"
+
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+prepare() {
+  cd "$srcdir/Veil"
+  cp "$srcdir/VeilDependencies/"* "$srcdir/Veil/setup/"
+
+  patch -Np1 -i ../setupsh_mod.patch
+}
+
+package() {
+  cd "$srcdir/Veil"
+
+  mkdir -p "$pkgdir/usr/bin/"
+  mkdir -p "$pkgdir/usr/share/veil"
+
+  install -Dm644 README.md "$pkgdir/usr/share/doc/veil/README.md"
+  install -m644 CHANGELOG "$pkgdir/usr/share/doc/veil/CHANGELOG"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/veil/COPYRIGHT"
+
+  rm CHANGELOG LICENSE README.md
+
+  cp -a * "$pkgdir/usr/share/veil"
+
+  cat > "$pkgdir/usr/bin/veil" << EOF
+#!/bin/sh
+cd /usr/share/veil/
+exec python Veil.py "\${@}"
+EOF
+
+  chmod +x "$pkgdir/usr/bin/veil"
+}

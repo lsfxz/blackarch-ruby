@@ -1,11 +1,10 @@
 # Maintainer: lsfxz (https://github.com/lsfxz/quarry)
-# This file is part of BlackArch Linux ( http://blackarch.org ).
 # See COPYING for license details.
 
 pkgname='ruby-sslshake'
 _gemname='sslshake'
 pkgver='1.2.0'
-pkgrel=1
+pkgrel=5
 pkgdesc="Ruby library for pure SSL/TLS handshake testing."
 arch=('any')
 url='https://github.com/arlimus/sslshake'
@@ -18,7 +17,7 @@ sha1sums=('4fe2606a3f89079ba602eca1cea823bd7151b8c0' )
 
 
 package() {
-  local _gemdir="$(ruby -rubygems -e 'puts Gem.default_dir')"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
   gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$pkgver.gem 
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
 
