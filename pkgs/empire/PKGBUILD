@@ -2,25 +2,26 @@
 
 pkgname='empire'
 pkgver=1262.4469f61
-pkgrel=2
+pkgrel=8
 epoch=1
 pkgdesc='A PowerShell and Python post-exploitation agent.'
 groups=('blackarch' 'blackarch-automation')
 arch=('any')
-url='https://github.com/adaptivethreat/Empire'
+url='https://github.com/EmpireProject/Empire'
 license=('custom:unknown')
 depends=('python2-m2crypto' 'swig' 'python2-iptools' 'python2-crypto'
-         'python2-pydispatcher' 'python2-flask'
+         'python2-pydispatcher' 'python2-flask' 'python2-pyminifier'
          'python2-zlib_wrapper' 'python2-pysqlite' 'python2-netifaces'
          'python2-argparse' 'python2-lxml' 'python2-dropbox' 'python2-macholib'
          'python2-pdb-clone' 'python2-urllib3' 'java-environment')
 makedepends=('git')
 optdepends=('powershell')
-source=('git+https://github.com/adaptivethreat/Empire.git'
-        "empire.sysusers.conf")
-        # 'pyopenssl.patch')
+source=('git+https://github.com/EmpireProject/Empire.git'
+        "empire.sysusers.conf"
+        'reset_nosudo.patch')
 sha1sums=('SKIP'
-          '92a3ee388184f8d6f202aab5e543907bd05da815')
+          '92a3ee388184f8d6f202aab5e543907bd05da815'
+          '022cfa0a0429a99f2403dfcba55ff7c19accffc4')
 install='empire.install'
 
 pkgver() {
@@ -35,6 +36,9 @@ package() {
   # it's fixed now \o/
   # ...fixed in a (hopefully) better way than by restricting the pyopenssl version..
   # patch -Np1 -i ../pyopenssl.patch
+  #
+  # allow reset without sudo:
+  patch -Np1 -i ../reset_nosudo.patch
 
   mkdir -p "$pkgdir/usr/lib/sysusers.d/" \
   "$pkgdir/usr/bin/" \
@@ -49,7 +53,7 @@ package() {
   install -Dm644 -t "$pkgdir/usr/share/doc/empire/" README.md changelog
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/empire/LICENSE"
 
-  rm changelog LICENSE README.md
+  rm changelog LICENSE README.md setup/install.sh
 
   cp -a * "$pkgdir/usr/share/empire"
 
@@ -60,4 +64,6 @@ exec python2 empire "\${@}"
 EOF
 
   chmod +x "$pkgdir/usr/bin/empire"
+
+  chmod -R g+w "$pkgdir/usr/share/empire"
 }

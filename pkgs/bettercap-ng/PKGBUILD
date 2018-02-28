@@ -1,6 +1,6 @@
 # Maintainer: lsfxz
 pkgname=bettercap-ng
-pkgver=20180129.280_530ac53
+pkgver=20180205.310_0f8c88e
 pkgrel=1
 pkgdesc="bettercap-ng"
 arch=('i686' 'x86_64')
@@ -49,7 +49,19 @@ build() {
 }
 
 package() {
-	find "$srcdir/.go/bin/" -type f -executable | while read filename; do
-		install -DT "$filename" "$pkgdir/usr/bin/$(basename $filename)"
-	done
+  mkdir -p "$pkgdir/usr/bin"
+  mkdir -p "$pkgdir/usr/share/bettercap-ng"
+
+  find "$srcdir/.go/bin/" -type f -executable | while read filename; do
+	  install -DT "$filename" "$pkgdir/usr/share/bettercap-ng/$(basename $filename)"
+  done
+
+  cat > "$pkgdir/usr/bin/bettercap-ng" << EOF
+cd /usr/share/bettercap-ng
+exec ./bettercap-ng "\${@}"
+EOF
+
+  chmod a+x "$pkgdir/usr/bin/bettercap-ng"
+
+  cp -r --no-preserve=ownership "$srcdir/bettercap-ng/caplets" "$pkgdir/usr/share/bettercap-ng/caplets"
 }

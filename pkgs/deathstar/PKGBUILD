@@ -1,0 +1,36 @@
+# See COPYING for license details.
+
+pkgname='deathstar'
+pkgver=34.17a618d
+pkgrel=1
+pkgdesc='Automate getting Domain Admin using Empire.'
+arch=('any')
+url='https://github.com/byt3bl33d3r/DeathStar'
+license=('GPL')
+depends=('python' 'python-pyopenssl' 'python-requests' 'python-termcolor' 'empire')
+makedepends=('git')
+options=('!strip')
+source=("git+https://github.com/byt3bl33d3r/DeathStar.git")
+sha1sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/DeathStar"
+
+  echo $(git rev-list --count master).$(git rev-parse --short master)
+}
+
+package() {
+  cd "$srcdir/DeathStar"
+
+  mkdir -p "$pkgdir/usr/bin"
+  mkdir -p "$pkgdir/usr/share/deathstar"
+
+  cp --no-preserve=ownership -a DeathStar.py "$pkgdir/usr/share/deathstar"
+
+  cat > "$pkgdir/usr/bin/deathstar" << EOF
+#!/bin/sh
+exec python /usr/share/deathstar/DeathStar.py "\$@"
+EOF
+
+  chmod +x "$pkgdir/usr/bin/deathstar"
+}

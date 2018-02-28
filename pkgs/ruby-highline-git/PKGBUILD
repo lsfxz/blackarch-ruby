@@ -1,0 +1,54 @@
+# Maintainer: lsfxz (https://github.com/lsfxz/quarry)
+# See COPYING for license details.
+
+pkgname='ruby-highline-git'
+_gemname='highline'
+pkgver=1062.81768f0
+_gemver='2.0.0.pre.develop.14'
+pkgrel=2
+pkgdesc="HighLine is a high-level command-line IO library."
+arch=('any')
+url='https://github.com/JEG2/highline'
+license=("Ruby")
+depends=('ruby' 'readline')
+makedepends=('git')
+source=('git+https://github.com/JEG2/highline.git'
+	'multiword.patch')
+options=('!emptydirs')
+
+sha1sums=('SKIP'
+          '0341729a3cce22e9bc0e997da1eeaea0a3e44df5')
+
+pkgver() {
+  cd "$srcdir/$_gemname"
+
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+prepare() {
+  cd "$srcdir/$_gemname"
+
+  patch -Np1 -i ../multiword.patch
+}
+
+build() {
+  cd "$srcdir/$_gemname"
+
+  gem build $_gemname.gemspec
+}
+
+package() {
+  cd "$srcdir/$_gemname"
+  local _gemdir="$(ruby -e 'puts Gem.default_dir')"
+  gem install --ignore-dependencies --no-document --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir"/usr/bin $_gemname-$_gemver.gem
+  rm "$pkgdir/$_gemdir/cache/$_gemname-$_gemver.gem"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$_gemver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$_gemver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+  # Preserve library and other required directories. Remove junk that gem installs.
+  local _copydir=`mktemp -d -t $_gemname.XXX`
+  chmod 755 $_copydir
+  (cd "$pkgdir/$_gemdir/gems/$_gemname-$_gemver"/ && cp -r --parents lib $_copydir)
+  rm -rf "$pkgdir/$_gemdir/gems/$_gemname-$_gemver"
+  mv $_copydir "$pkgdir/$_gemdir/gems/$_gemname-$_gemver"
+}

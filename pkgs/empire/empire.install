@@ -1,8 +1,10 @@
 post_install() {
-  echo ">>"
-  echo ">>    You should now run"
-  echo ">>   	python2 /usr/share/empire/setup/setup_database.py."
-
+  cd /usr/share/empire
+  echo ">>    Setting up database..."
+  STAGING_KEY='RANDOM' python2 /usr/share/empire/setup/setup_database.py
+  echo ">>    Generating certs..."
+  openssl req -new -x509 -keyout ./data/empire-priv.key -out ./data/empire-chain.pem -days 365 -nodes -subj "/C=US" >/dev/null 2>&1
+  echo ">>    Creating empire group..."
   systemd-sysusers empire.conf
   post_group "$@"
   post_common "$@"

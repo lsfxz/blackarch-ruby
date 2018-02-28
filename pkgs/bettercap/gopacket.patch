@@ -1,0 +1,354 @@
+diff --git a/modules/dhcp6_spoof.go b/modules/dhcp6_spoof.go
+index 35c90cd..7e36008 100644
+--- a/modules/dhcp6_spoof.go
++++ b/modules/dhcp6_spoof.go
+@@ -14,12 +14,12 @@ import (
+ 	"github.com/bettercap/bettercap/packets"
+ 	"github.com/bettercap/bettercap/session"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
+-	"github.com/bettercap/gopacket/pcap"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
++	"github.com/google/gopacket/pcap"
+ 
+ 	// TODO: refactor to use gopacket when gopacket folks
+-	// will fix this > https://github.com/bettercap/gopacket/issues/334
++	// will fix this > https://github.com/google/gopacket/issues/334
+ 	"github.com/mdlayher/dhcp6"
+ 	"github.com/mdlayher/dhcp6/dhcp6opts"
+ )
+diff --git a/modules/dns_spoof.go b/modules/dns_spoof.go
+index 525b372..1c2a607 100644
+--- a/modules/dns_spoof.go
++++ b/modules/dns_spoof.go
+@@ -12,9 +12,9 @@ import (
+ 	"github.com/bettercap/bettercap/packets"
+ 	"github.com/bettercap/bettercap/session"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
+-	"github.com/bettercap/gopacket/pcap"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
++	"github.com/google/gopacket/pcap"
+ )
+ 
+ type DNSSpoofer struct {
+diff --git a/modules/net_sniff.go b/modules/net_sniff.go
+index 19dcbff..6888e04 100644
+--- a/modules/net_sniff.go
++++ b/modules/net_sniff.go
+@@ -8,8 +8,8 @@ import (
+ 
+ 	"github.com/bettercap/bettercap/session"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ type Sniffer struct {
+diff --git a/modules/net_sniff_context.go b/modules/net_sniff_context.go
+index f0a8f94..8027771 100644
+--- a/modules/net_sniff_context.go
++++ b/modules/net_sniff_context.go
+@@ -8,8 +8,8 @@ import (
+ 	"github.com/bettercap/bettercap/log"
+ 	"github.com/bettercap/bettercap/session"
+ 
+-	"github.com/bettercap/gopacket/pcap"
+-	"github.com/bettercap/gopacket/pcapgo"
++	"github.com/google/gopacket/pcap"
++	"github.com/google/gopacket/pcapgo"
+ )
+ 
+ type SnifferContext struct {
+diff --git a/modules/net_sniff_dns.go b/modules/net_sniff_dns.go
+index 866e5cd..ff5274b 100644
+--- a/modules/net_sniff_dns.go
++++ b/modules/net_sniff_dns.go
+@@ -5,8 +5,8 @@ import (
+ 
+ 	"github.com/bettercap/bettercap/core"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ func dnsParser(ip *layers.IPv4, pkt gopacket.Packet, udp *layers.UDP) bool {
+diff --git a/modules/net_sniff_dot11.go b/modules/net_sniff_dot11.go
+index 9b54688..640e77b 100644
+--- a/modules/net_sniff_dot11.go
++++ b/modules/net_sniff_dot11.go
+@@ -1,8 +1,8 @@
+ package modules
+ 
+ import (
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ func dot11Parser(radiotap *layers.RadioTap, dot11 *layers.Dot11, pkt gopacket.Packet, verbose bool) {
+diff --git a/modules/net_sniff_http.go b/modules/net_sniff_http.go
+index 3f8a75f..edcc365 100644
+--- a/modules/net_sniff_http.go
++++ b/modules/net_sniff_http.go
+@@ -7,8 +7,8 @@ import (
+ 
+ 	"github.com/bettercap/bettercap/core"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ func httpParser(ip *layers.IPv4, pkt gopacket.Packet, tcp *layers.TCP) bool {
+diff --git a/modules/net_sniff_krb5.go b/modules/net_sniff_krb5.go
+index 49868c2..1a7df42 100644
+--- a/modules/net_sniff_krb5.go
++++ b/modules/net_sniff_krb5.go
+@@ -6,8 +6,8 @@ import (
+ 	"github.com/bettercap/bettercap/core"
+ 	"github.com/bettercap/bettercap/packets"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ func krb5Parser(ip *layers.IPv4, pkt gopacket.Packet, udp *layers.UDP) bool {
+diff --git a/modules/net_sniff_ntlm.go b/modules/net_sniff_ntlm.go
+index 1134ddf..66441af 100644
+--- a/modules/net_sniff_ntlm.go
++++ b/modules/net_sniff_ntlm.go
+@@ -7,8 +7,8 @@ import (
+ 	"github.com/bettercap/bettercap/core"
+ 	"github.com/bettercap/bettercap/packets"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ var (
+diff --git a/modules/net_sniff_parsers.go b/modules/net_sniff_parsers.go
+index 53bd6ae..32c3f1e 100644
+--- a/modules/net_sniff_parsers.go
++++ b/modules/net_sniff_parsers.go
+@@ -7,8 +7,8 @@ import (
+ 	"github.com/bettercap/bettercap/log"
+ 	"github.com/bettercap/bettercap/packets"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ func tcpParser(ip *layers.IPv4, pkt gopacket.Packet, verbose bool) {
+diff --git a/modules/net_sniff_sni.go b/modules/net_sniff_sni.go
+index f759a87..07a78e6 100644
+--- a/modules/net_sniff_sni.go
++++ b/modules/net_sniff_sni.go
+@@ -6,8 +6,8 @@ import (
+ 	"github.com/bettercap/bettercap/core"
+ 	"regexp"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ // poor man's TLS Client Hello with SNI extension parser :P
+diff --git a/modules/net_sniff_views.go b/modules/net_sniff_views.go
+index 84dcdf4..c1c1137 100644
+--- a/modules/net_sniff_views.go
++++ b/modules/net_sniff_views.go
+@@ -5,7 +5,7 @@ import (
+ 	"net"
+ 	"time"
+ 
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket/layers"
+ 
+ 	"github.com/bettercap/bettercap/core"
+ 	"github.com/bettercap/bettercap/session"
+diff --git a/modules/syn_scan.go b/modules/syn_scan.go
+index 5c2ec33..ba25bf7 100644
+--- a/modules/syn_scan.go
++++ b/modules/syn_scan.go
+@@ -13,8 +13,8 @@ import (
+ 	"github.com/bettercap/bettercap/packets"
+ 	"github.com/bettercap/bettercap/session"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ 
+ 	"github.com/malfunkt/iprange"
+ )
+diff --git a/modules/wifi_recon.go b/modules/wifi_recon.go
+index 5be07fe..b56bc57 100644
+--- a/modules/wifi_recon.go
++++ b/modules/wifi_recon.go
+@@ -15,9 +15,9 @@ import (
+ 	"github.com/bettercap/bettercap/packets"
+ 	"github.com/bettercap/bettercap/session"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
+-	"github.com/bettercap/gopacket/pcap"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
++	"github.com/google/gopacket/pcap"
+ 
+ 	"github.com/dustin/go-humanize"
+ )
+diff --git a/modules/wol.go b/modules/wol.go
+index 9d44748..1542c2d 100644
+--- a/modules/wol.go
++++ b/modules/wol.go
+@@ -10,7 +10,7 @@ import (
+ 	"github.com/bettercap/bettercap/packets"
+ 	"github.com/bettercap/bettercap/session"
+ 
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ var (
+diff --git a/network/net_windows.go b/network/net_windows.go
+index ce62f11..5fe544c 100644
+--- a/network/net_windows.go
++++ b/network/net_windows.go
+@@ -6,7 +6,7 @@ import (
+ 	"regexp"
+ 	"strings"
+ 
+-	"github.com/bettercap/gopacket/pcap"
++	"github.com/google/gopacket/pcap"
+ )
+ 
+ // only matches gateway lines
+diff --git a/packets/arp.go b/packets/arp.go
+index 7199896..ffc61ab 100644
+--- a/packets/arp.go
++++ b/packets/arp.go
+@@ -3,7 +3,7 @@ package packets
+ import (
+ 	"net"
+ 
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ func NewARPTo(from net.IP, from_hw net.HardwareAddr, to net.IP, to_hw net.HardwareAddr, req uint16) (layers.Ethernet, layers.ARP) {
+diff --git a/packets/dhcp6.go b/packets/dhcp6.go
+index 409c24b..656f5ae 100644
+--- a/packets/dhcp6.go
++++ b/packets/dhcp6.go
+@@ -3,7 +3,7 @@ package packets
+ import (
+ 	"errors"
+ 	// TODO: refactor to use gopacket when gopacket folks
+-	// will fix this > https://github.com/bettercap/gopacket/issues/334
++	// will fix this > https://github.com/google/gopacket/issues/334
+ 	"github.com/mdlayher/dhcp6"
+ )
+ 
+diff --git a/packets/dhcp6_layer.go b/packets/dhcp6_layer.go
+index 23dd5be..ac12879 100644
+--- a/packets/dhcp6_layer.go
++++ b/packets/dhcp6_layer.go
+@@ -1,7 +1,7 @@
+ package packets
+ 
+ import (
+-	"github.com/bettercap/gopacket"
++	"github.com/google/gopacket"
+ )
+ 
+ type DHCPv6Layer struct {
+diff --git a/packets/dot11.go b/packets/dot11.go
+index 550d2b7..7468946 100644
+--- a/packets/dot11.go
++++ b/packets/dot11.go
+@@ -6,8 +6,8 @@ import (
+ 	"fmt"
+ 	"net"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
+ )
+ 
+ type Dot11CipherType uint8
+diff --git a/packets/queue.go b/packets/queue.go
+index 7d9d0db..5d49d4a 100644
+--- a/packets/queue.go
++++ b/packets/queue.go
+@@ -8,9 +8,9 @@ import (
+ 
+ 	"github.com/bettercap/bettercap/network"
+ 
+-	"github.com/bettercap/gopacket"
+-	"github.com/bettercap/gopacket/layers"
+-	"github.com/bettercap/gopacket/pcap"
++	"github.com/google/gopacket"
++	"github.com/google/gopacket/layers"
++	"github.com/google/gopacket/pcap"
+ )
+ 
+ type Activity struct {
+diff --git a/packets/serialize.go b/packets/serialize.go
+index 929981a..7bf52c2 100644
+--- a/packets/serialize.go
++++ b/packets/serialize.go
+@@ -1,7 +1,7 @@
+ package packets
+ 
+ import (
+-	"github.com/bettercap/gopacket"
++	"github.com/google/gopacket"
+ )
+ 
+ var SerializationOptions = gopacket.SerializeOptions{
+diff --git a/packets/tcp.go b/packets/tcp.go
+index 263ad56..3b646b3 100644
+--- a/packets/tcp.go
++++ b/packets/tcp.go
+@@ -1,7 +1,7 @@
+ package packets
+ 
+ import (
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket/layers"
+ 	"net"
+ )
+ 
+diff --git a/packets/udp.go b/packets/udp.go
+index db003c1..c9a3805 100644
+--- a/packets/udp.go
++++ b/packets/udp.go
+@@ -1,7 +1,7 @@
+ package packets
+ 
+ import (
+-	"github.com/bettercap/gopacket/layers"
++	"github.com/google/gopacket/layers"
+ 	"net"
+ )
+ 

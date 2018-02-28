@@ -1,0 +1,68 @@
+# Maintainer: evs-ch <evs-ch@users.noreply.github.com>
+pkgname=bettercap
+pkgver=20180228.773_5ef8def
+pkgrel=1
+pkgdesc="bettercap"
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('libpcap')
+replaces=('bettercap-ng')
+conflicts=('bettercap-ng')
+optdepends=('bettercap-caplets')
+makedepends=('go' 'git')
+source=("bettercap::git://github.com/bettercap/bettercap#branch=${BRANCH:-master}"
+	"gopacket.patch")
+md5sums=('SKIP'
+         '2ef49a4683514bc134c03ccbaea89bcc')
+
+pkgver() {
+    cd "$srcdir/$pkgname"
+    local date=$(git log -1 --format="%cd" --date=short | sed s/-//g)
+    local count=$(git rev-list --count HEAD)
+    local commit=$(git rev-parse --short HEAD)
+    echo "$date.${count}_$commit"
+}
+
+build() {
+    cd "$srcdir/$pkgname"
+    patch -Np1 -i $srcdir/blah.patch
+
+    if [ -L "$srcdir/$pkgname" ]; then
+	rm "$srcdir/$pkgname" -rf
+	mv "$srcdir/.go/src/$pkgname/" "$srcdir/$pkgname"
+    fi
+
+    rm -rf "$srcdir/.go/src"
+
+    mkdir -p "$srcdir/.go/src"
+    mkdir -p "$srcdir/.go/src/github.com/bettercap/"
+
+    export GOPATH="$srcdir/.go"
+
+    cp -ar "$srcdir/$pkgname" "$srcdir/.go/src/"
+    mv "$srcdir/$pkgname"  "$srcdir/.go/src/github.com/bettercap/bettercap"
+
+    cd "$srcdir/.go/src/$pkgname/"
+    ln -sf "$srcdir/.go/src/$pkgname/" "$srcdir/$pkgname"
+
+    git submodule update --init
+
+    go get -v \
+	-gcflags "-trimpath $GOPATH/src"
+}
+
+package() {
+    mkdir -p "$pkgdir/usr/bin"
+    mkdir -p "$pkgdir/usr/share/bettercap"
+
+    find "$srcdir/.go/bin/" -type f -executable | while read filename; do
+	install -DT "$filename" "$pkgdir/usr/share/bettercap/$(basename $filename)"
+    done
+
+    cat > "$pkgdir/usr/bin/bettercap" << EOF
+cd /usr/share/bettercap
+exec ./bettercap "\${@}"
+EOF
+
+    chmod a+x "$pkgdir/usr/bin/bettercap"
+}

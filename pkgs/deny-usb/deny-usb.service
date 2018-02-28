@@ -1,0 +1,8 @@
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sysctl kernel.deny_new_usb=1
+ExecStop=/usr/bin/sysctl kernel.deny_new_usb=0
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target suspend.target sleep.target

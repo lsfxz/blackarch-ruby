@@ -1,0 +1,27 @@
+
+# Maintainer: evs-ch <evs-ch@users.noreply.github.com>
+pkgname=bettercap-caplets
+pkgver=20180227.5_0a37b42
+pkgrel=2
+pkgdesc="bettercap"
+arch=('any')
+license=('GPL')
+depends=('libpcap')
+makedepends=('git')
+source=("bettercap-caplets::git://github.com/bettercap/caplets")
+md5sums=('SKIP')
+
+pkgver() {
+    cd "$srcdir/$pkgname"
+    local date=$(git log -1 --format="%cd" --date=short | sed s/-//g)
+    local count=$(git rev-list --count HEAD)
+    local commit=$(git rev-parse --short HEAD)
+    echo "$date.${count}_$commit"
+}
+
+package() {
+    mkdir -p "$pkgdir/usr/bin"
+    mkdir -p "$pkgdir/usr/share/bettercap"
+
+    cp -r --no-preserve=ownership "$srcdir/$pkgname" "$pkgdir/usr/share/bettercap/caplets"
+}

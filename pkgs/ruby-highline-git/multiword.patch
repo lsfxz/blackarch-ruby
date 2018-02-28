@@ -1,0 +1,12 @@
+diff --git a/lib/highline/terminal.rb b/lib/highline/terminal.rb
+index d736369..4f62221 100755
+--- a/lib/highline/terminal.rb
++++ b/lib/highline/terminal.rb
+@@ -97,6 +97,7 @@ class HighLine
+     # @param (see #get_line)
+     def get_line_with_readline(question, highline)
+       require "readline" # load only if needed
++      Readline.basic_word_break_characters = ''
+ 
+       raw_answer = readline_read(question)
+ 

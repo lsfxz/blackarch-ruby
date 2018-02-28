@@ -1,0 +1,14 @@
+# Maintainer: Silvio Knizek <killermoehre@gmx.net>
+pkgname=deny-usb
+pkgver=1
+pkgrel=0
+pkgdesc='A service to block/unblock new usb devices on linux-hardened'
+arch=('any')
+license=('MIT')
+depends=('linux-hardened' 'systemd')
+source=('deny-usb.service')
+md5sums=('9f2c34c0dcded63dab01f9f0193bf5cf')
+
+package() {
+    install -D -m 644 'deny-usb.service' "$pkgdir/usr/lib/systemd/system/deny-usb.service"
+}
