@@ -1,8 +1,8 @@
 
 # Maintainer: evs-ch <evs-ch@users.noreply.github.com>
 pkgname=bettercap-caplets
-pkgver=20180227.5_0a37b42
-pkgrel=2
+pkgver=20180305.10_fcad71f
+pkgrel=1
 pkgdesc="bettercap"
 arch=('any')
 license=('GPL')

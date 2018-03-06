@@ -1,8 +1,8 @@
 # Maintainer: evs-ch <evs-ch@users.noreply.github.com>
 pkgname=bettercap
-pkgver=20180228.773_5ef8def
+pkgver=20180305.805_d33430b
 pkgrel=1
-pkgdesc="bettercap"
+pkgdesc="The state of the art network attack and monitoring framework."
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('libpcap')
@@ -10,10 +10,8 @@ replaces=('bettercap-ng')
 conflicts=('bettercap-ng')
 optdepends=('bettercap-caplets')
 makedepends=('go' 'git')
-source=("bettercap::git://github.com/bettercap/bettercap#branch=${BRANCH:-master}"
-	"gopacket.patch")
-md5sums=('SKIP'
-         '2ef49a4683514bc134c03ccbaea89bcc')
+source=("bettercap::git://github.com/bettercap/bettercap#branch=${BRANCH:-master}")
+md5sums=('SKIP')
 
 pkgver() {
     cd "$srcdir/$pkgname"
@@ -25,7 +23,7 @@ pkgver() {
 
 build() {
     cd "$srcdir/$pkgname"
-    patch -Np1 -i $srcdir/blah.patch
+    # find ./ -name '*.go' -exec sed -i "s/bettercap\/gopacket/google\/gopacket/" {} \;
 
     if [ -L "$srcdir/$pkgname" ]; then
 	rm "$srcdir/$pkgname" -rf
@@ -35,12 +33,12 @@ build() {
     rm -rf "$srcdir/.go/src"
 
     mkdir -p "$srcdir/.go/src"
-    mkdir -p "$srcdir/.go/src/github.com/bettercap/"
 
     export GOPATH="$srcdir/.go"
 
-    cp -ar "$srcdir/$pkgname" "$srcdir/.go/src/"
-    mv "$srcdir/$pkgname"  "$srcdir/.go/src/github.com/bettercap/bettercap"
+    # cp -ar "$srcdir/$pkgname" "$srcdir/.go/src/"
+    # mv "$srcdir/$pkgname"  "$srcdir/.go/src/github.com/bettercap/bettercap"
+    mv "$srcdir/$pkgname"  "$srcdir/.go/src/"
 
     cd "$srcdir/.go/src/$pkgname/"
     ln -sf "$srcdir/.go/src/$pkgname/" "$srcdir/$pkgname"
